@@ -7,7 +7,7 @@ USER root
 WORKDIR /home/jovyan
 
 # Copy files as root
-COPY ./aznbsetup.sh ./aznbsetup.sh
+COPY --chmod=755 ./aznbsetup.sh ./aznbsetup.sh
 COPY . .
 
 # Fix ownership
