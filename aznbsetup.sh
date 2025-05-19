@@ -6,8 +6,9 @@ source /opt/conda/etc/profile.d/conda.sh
 # Activate base environment
 conda activate base
 
-# Use mamba to install packages quickly from conda-forge
+# Install required packages using mamba
 mamba install -y -c conda-forge \
+    plotly \
     folium=0.14.0 \
     branca=0.6.0 \
     ipywidgets \
@@ -20,14 +21,8 @@ mamba install -y -c conda-forge \
     networkx=3.2 \
     missingno=0.5.2 \
     bokeh=3.3 \
-    pandas=2.2
-
-# Upgrade pip and install PyPI packages
-pip install --upgrade pip
-pip install \
-    pyviz \
-    plotly==5.20.0
+    pandas=2.2 \
+    numpy
 
 # Deactivate
 conda deactivate
-
