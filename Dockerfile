@@ -7,9 +7,10 @@ USER root
 WORKDIR /home/jovyan
 
 # Copy files as root
+COPY . .
 COPY ./aznbsetup.sh ./aznbsetup.sh
 RUN chmod +x ./aznbsetup.sh
-COPY . .
+
 
 # Fix ownership
 RUN chown -R jovyan:users /home/jovyan
