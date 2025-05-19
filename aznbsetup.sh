@@ -1,17 +1,20 @@
 #!/bin/bash
 
-# Initialize conda (this sets up the 'conda' command)
+# Initialize conda
 source /opt/conda/etc/profile.d/conda.sh
 
 # Activate base environment
 conda activate base
 
-# Update Conda (optional, can be skipped to avoid slowing builds)
-# mamba install -n base -c conda-forge conda
-
-# Use mamba for fast installs
+# Use mamba to install packages quickly from conda-forge
 mamba install -y -c conda-forge \
     folium=0.14.0 \
+    branca=0.6.0 \
+    ipywidgets \
+    ipython \
+    ipykernel \
+    jupyterlab \
+    nodejs \
     jinja2=3.1.2 \
     xlrd \
     networkx=3.2 \
@@ -19,9 +22,12 @@ mamba install -y -c conda-forge \
     bokeh=3.3 \
     pandas=2.2
 
-# Upgrade pip and install extra Python packages
+# Upgrade pip and install PyPI packages
 pip install --upgrade pip
-pip install pyviz plotly==5.20.0
+pip install \
+    pyviz \
+    plotly==5.20.0
 
-# Deactivate environment
+# Deactivate
 conda deactivate
+

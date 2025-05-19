@@ -1,23 +1,23 @@
-# Use an official Jupyter Notebook base image
 FROM jupyter/base-notebook
 
-# Set the working directory inside the container
-WORKDIR /home/work
-
-# Use root to install git
+# Start as root to adjust ownership
 USER root
-RUN apt-get update && apt-get install -y git && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy the project files, including aznbsetup.sh
-COPY --chmod=777 ./aznbsetup.sh .
+# Set workdir (owned by jovyan, but might get files owned by root after COPY)
+WORKDIR /home/jovyan
 
-# Install dependencies using the aznbsetup.sh script
-RUN ./aznbsetup.sh
-
+# Copy files as root
+COPY ./aznbsetup.sh ./aznbsetup.sh
 COPY . .
 
-# Expose the default Jupyter Notebook port
-EXPOSE 8888
+# Fix ownership
+RUN chown -R jovyan:users /home/jovyan
 
-# Start Jupyter Notebook without a token or password
+# Drop privileges
+USER jovyan
+
+# Run setup script
+RUN ./aznbsetup.sh
+
+EXPOSE 8888
 CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.password=''"]
